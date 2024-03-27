@@ -1,6 +1,7 @@
 import type {Metadata} from "next";
 import {Manrope} from "next/font/google"
 import "./globals.css";
+import {Toaster} from "sonner";
 
 
 const manrope = Manrope({
@@ -20,6 +21,7 @@ export default function RootLayout({children}: Readonly<{
     <html lang="en" suppressHydrationWarning>
         <body className={manrope.className}>
             {children}
+            <Toaster />
         </body>
     </html>
     );

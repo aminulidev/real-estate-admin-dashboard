@@ -4,36 +4,35 @@ import * as z from "zod";
 import bcrypt from "bcryptjs";
 import {db} from "@/lib/db";
 import {getUserByEmail} from "@/data/user";
-// import {generateVerificationToken} from "@/lib/tokens";
-// import {sendVerificationEmail} from "@/lib/mail";
 
 export const register = async (values: z.infer<typeof SignUpSchema>) => {
     const validatedFields = SignUpSchema.safeParse(values);
 
-    if(!validatedFields.success){
-        return {error: "Invalid fields!"}
+    if (!validatedFields.success) {
+        return { error: "Invalid fields!" };
     }
 
-    const {name, email, password} = validatedFields.data;
+    const { name, email, password } = validatedFields.data;
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const existUser = await getUserByEmail(email);
-    if (existUser) return {error: "Email already taken!"}
+    const existingUser = await getUserByEmail(email);
 
-    await db.user.create({
-        data: {
-            name,
-            email,
-            password: hashedPassword
-        }
-    });
+    if (existingUser) {
+        return { error: "Email already taken!" };
+    }
 
-    // sent verification email
-    // const verificationToken = await generateVerificationToken(email);
-    // await sendVerificationEmail(
-    //     verificationToken.email,
-    //     verificationToken.token
-    // );
+    try {
+        await db.user.create({
+            data: {
+                name,
+                email,
+                password: hashedPassword
+            }
+        });
 
-    return {success: "Sign up successfully!"}
-}
+        return { success: "Sign up successfully!" };
+    } catch (error) {
+        // Handle any unexpected errors
+        return { error: "Failed to create user." };
+    }
+};

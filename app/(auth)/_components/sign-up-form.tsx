@@ -16,8 +16,11 @@ import {SignUpSchema} from "@/schemas/auth-schema";
 import Link from "next/link";
 import {AuthFooter} from "@/app/(auth)/_components/auth-footer";
 import {register} from "@/actions/register";
+import {toast} from "sonner";
+import {useTransition} from "react";
 
 export const SignUpForm = () => {
+    const [isPending, startTransition] = useTransition();
     const form = useForm<z.infer<typeof SignUpSchema>>({
         resolver: zodResolver(SignUpSchema),
         defaultValues: {
@@ -28,9 +31,16 @@ export const SignUpForm = () => {
     });
 
     const onSubmit = (values: z.infer<typeof SignUpSchema>) => {
-        register(values).then((data) => {
-            console.log(data);
-        })
+        startTransition( () => {
+            register(values).then((data) => {
+                if (data?.error) {
+                    toast.error(data.error);
+                }
+                if (data?.success) {
+                    toast.success(data.success);
+                }
+            });
+        });
     };
 
     return (
@@ -76,7 +86,7 @@ export const SignUpForm = () => {
                     )}
                 />
                 <div className="space-y-5 pt-2.5">
-                    <Button type="submit">Sign up</Button>
+                    <Button type="submit" disabled={isPending}>Sign up</Button>
 
                     <AuthFooter
                         description="Already have an account?"
