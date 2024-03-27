@@ -15,6 +15,7 @@ import { Input } from "@/components/ui/input"
 import {SignUpSchema} from "@/schemas/auth-schema";
 import Link from "next/link";
 import {AuthFooter} from "@/app/(auth)/_components/auth-footer";
+import {register} from "@/actions/register";
 
 export const SignUpForm = () => {
     const form = useForm<z.infer<typeof SignUpSchema>>({
@@ -27,7 +28,9 @@ export const SignUpForm = () => {
     });
 
     const onSubmit = (values: z.infer<typeof SignUpSchema>) => {
-        console.log(values);
+        register(values).then((data) => {
+            console.log(data);
+        })
     };
 
     return (
