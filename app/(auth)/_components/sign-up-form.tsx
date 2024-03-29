@@ -13,7 +13,6 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import {SignUpSchema} from "@/schemas/auth-schema";
-import Link from "next/link";
 import {AuthFooter} from "@/app/(auth)/_components/auth-footer";
 import {register} from "@/actions/register";
 import {toast} from "sonner";
@@ -34,9 +33,11 @@ export const SignUpForm = () => {
         startTransition( () => {
             register(values).then((data) => {
                 if (data?.error) {
+                    form.reset();
                     toast.error(data.error);
                 }
                 if (data?.success) {
+                    form.reset();
                     toast.success(data.success);
                 }
             });

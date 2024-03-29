@@ -80,6 +80,7 @@ export const {
         },
     },
     adapter: PrismaAdapter(db),
+    secret: "hEamG3FY804iEiZ396ysGN6Zc8mLDQq11+qYlkb5Vps",
     session: {strategy: "jwt"},
     ...authConfig
 })

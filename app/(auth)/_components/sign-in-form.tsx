@@ -15,8 +15,13 @@ import { Input } from "@/components/ui/input"
 import {SignInSchema} from "@/schemas/auth-schema";
 import Link from "next/link";
 import {AuthFooter} from "@/app/(auth)/_components/auth-footer";
+import {register} from "@/actions/register";
+import {toast} from "sonner";
+import {useTransition} from "react";
+import {login} from "@/actions/login";
 
 export const SignInForm = () => {
+    const [isPending, startTransition] = useTransition();
     const form = useForm<z.infer<typeof SignInSchema>>({
         resolver: zodResolver(SignInSchema),
         defaultValues: {
@@ -26,7 +31,18 @@ export const SignInForm = () => {
     });
 
     const onSubmit = (values: z.infer<typeof SignInSchema>) => {
-        console.log(values);
+        startTransition( () => {
+            login(values).then((data) => {
+                if (data?.error) {
+                    form.reset();
+                    toast.error(data.error);
+                }
+                if (data?.success) {
+                    form.reset();
+                    toast.success(data.success);
+                }
+            });
+        });
     };
 
     return (
@@ -58,13 +74,13 @@ export const SignInForm = () => {
                         </FormItem>
                     )}
                 />
-                <div className="text-end">
-                    <Button asChild variant="link" size="link">
-                        <Link href="/forgot-password">Forgot Password</Link>
-                    </Button>
-                </div>
+                {/*<div className="text-end">*/}
+                {/*    <Button asChild variant="link" size="link">*/}
+                {/*        <Link href="/forgot-password">Forgot Password</Link>*/}
+                {/*    </Button>*/}
+                {/*</div>*/}
                 <div className="space-y-5 pt-2.5">
-                    <Button type="submit">Sign in</Button>
+                    <Button type="submit" disabled={isPending}>Sign in</Button>
                     <AuthFooter
                         description="Already have an account?"
                         link="/sign-up" linkText="Sign up"

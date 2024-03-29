@@ -3,7 +3,6 @@ import Credentials from "next-auth/providers/credentials";
 import {getUserByEmail} from "@/data/user";
 import bcrypt from "bcryptjs";
 import Goggle from "next-auth/providers/google";
-import Github from "next-auth/providers/github";
 import {SignInSchema} from "@/schemas/auth-schema";
 export default {
     providers: [
@@ -12,11 +11,6 @@ export default {
             clientSecret: process.env.GOOGLE_CLIENT_SECRET,
             allowDangerousEmailAccountLinking: true
         }),
-        // Github({
-        //     clientId: process.env.GITHUB_CLIENT_ID,
-        //     clientSecret: process.env.GITHUB_CLIENT_SECRET,
-        //     allowDangerousEmailAccountLinking: true
-        // }),
         Credentials({
             async authorize(credentials) {
                 const validatedFields = SignInSchema.safeParse(credentials);
