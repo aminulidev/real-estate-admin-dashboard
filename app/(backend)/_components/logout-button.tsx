@@ -9,7 +9,7 @@ const LogoutButton = ({children}: LogoutButtonProps) => {
         logout();
     }
     return (
-        <span onClick={handleLogout} className="cursor-pointer">
+        <span onClick={handleLogout} className="flex items-center gap-2.5 cursor-pointer">
             {children}
         </span>
     );

@@ -26,6 +26,8 @@ const config = {
             spacing: {
                 "4.5": "1.125rem",
                 "15": "3.75rem",
+                "17.5": "4.375rem",
+                "62.5": "15.625rem",
                 "95": "23.438rem",
             },
             colors: {
@@ -67,6 +69,9 @@ const config = {
                 lg: "var(--radius)",
                 md: "calc(var(--radius) - 2px)",
                 sm: "calc(var(--radius) - 4px)",
+            },
+            dropShadow: {
+              "3xl": "0px 40px 50px 1px rgba(120, 114, 114, 0.15)",
             },
             keyframes: {
                 "accordion-down": {
