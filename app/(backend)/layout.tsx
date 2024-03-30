@@ -10,9 +10,11 @@ const BackendLayout = ({children}:BackendLayoutProps) => {
     return (
         <>
             <Header />
-            <div className="w-full flex items-center">
+            <div className="relative top-17.5 w-full flex">
                 <Sidebar />
-                {children}
+                <div className="p-4.5 w-full lg:p-6 lg:ml-62.5">
+                    {children}
+                </div>
             </div>
         </>
     );

@@ -4,7 +4,7 @@ import {SunIcon} from "lucide-react";
 const ThemeSwitcher = () => {
     return (
         <button>
-            <SunIcon size="32" />
+            <SunIcon size="24" />
         </button>
     );
 };
