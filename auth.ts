@@ -4,6 +4,7 @@ import {db} from "@/lib/db";
 import authConfig from "@/auth.config";
 import {getUserById} from "@/data/user";
 import {getAccountByUserId} from "@/data/account";
+import {UserRole} from "@prisma/client";
 
 export const {
     handlers: {GET, POST},
@@ -45,9 +46,9 @@ export const {
                 session.user.id = token.sub;
             }
 
-            // if (token.role && session.user) {
-            //     session.user.role = token.role as UserRole;
-            // }
+            if (token.role && session.user) {
+                session.user.role = token.role as UserRole;
+            }
             //
             // if (session.user) {
             //     session.user.isTwoFactorEnabled = token.isTwoFactorEnabled as boolean;
@@ -74,7 +75,7 @@ export const {
             token.isOAuth = !!existingAccount;
             token.name = existingUser.name;
             token.email = existingUser.email;
-            // token.role = existingUser.role;
+            token.role = existingUser.role;
             // token.isTwoFactorEnabled = existingUser.isTwoFactorEnabled;
             return token;
         },
