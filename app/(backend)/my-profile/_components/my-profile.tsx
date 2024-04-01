@@ -9,10 +9,14 @@ import PhoneIcon from "@/components/icons/phone-icon";
 import EmailIcon from "@/components/icons/email-icon";
 import {useCurrentUser} from "@/hooks/use-current-user";
 import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
+import ProfileDropdownMenu from "@/app/(backend)/my-profile/_components/profile-dropdown-menu";
+import {useCurrentRole} from "@/hooks/use-current-role";
+import {capitalize} from "@/lib/utils";
 
 const MyProfile = () => {
     const currentUser = useCurrentUser();
-    console.log(currentUser);
+    const currentRole = useCurrentRole();
+
     return (
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-12.5 sm:gap-15 bg-card p-4 md:p-5 rounded-xl">
             {/*banner*/}
@@ -31,8 +35,13 @@ const MyProfile = () => {
             {/*profile info*/}
             <div className="space-y-5 sm:pt-4.5">
                 <div className="space-y-1.5">
-                    <h2 className="text-base font-semibold leading-6">{currentUser?.name}</h2>
-                    <p className="text-sm font-normal leading-5.5 text-secondary-foreground">Admin</p>
+                    <div className="flex items-center justify-between">
+                        <h2 className="text-base font-semibold leading-6">{currentUser?.name}</h2>
+                        <ProfileDropdownMenu />
+                    </div>
+                    <p className="text-sm font-normal leading-5.5 text-secondary-foreground capitalize">
+                        {capitalize(currentRole)}
+                    </p>
                 </div>
                 <ProfileInfoItem
                     label="Address"

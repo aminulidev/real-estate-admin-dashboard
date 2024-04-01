@@ -4,7 +4,7 @@ import PageTitle from "@/app/(backend)/_components/page-title";
 import MyProfile from "@/app/(backend)/my-profile/_components/my-profile";
 
 export const metadata: Metadata = {
-    title: "MyProfile",
+    title: "My Profile",
     description: "MyProfile page"
 };
 
