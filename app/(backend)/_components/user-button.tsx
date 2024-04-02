@@ -15,9 +15,12 @@ import LogoutButton from "@/app/(backend)/_components/logout-button";
 import {ProfileIcon} from "@/components/icons/profile-icon";
 import {SettingsIcon} from "@/components/icons/settings-icon";
 import {LogoutIcon} from "@/components/icons/logout-icon";
+import {useCurrentRole} from "@/hooks/use-current-role";
+import {UserRole} from "@prisma/client";
 
 export const UserButton = () => {
     const user = useCurrentUser();
+    const role = useCurrentRole();
 
     return (
         <DropdownMenu>
@@ -38,10 +41,12 @@ export const UserButton = () => {
                     <ProfileIcon className="h-4 w-4 fill-popover-foreground transition-colors group-hover:fill-primary" />
                     Edit Profile
                 </DropdownMenuItem>
-                <DropdownMenuItem>
-                    <SettingsIcon className="h-4 w-4 fill-popover-foreground transition-colors group-hover:fill-primary" />
-                    Settings
-                </DropdownMenuItem>
+                {role === UserRole.ADMIN ?
+                    <DropdownMenuItem>
+                        <SettingsIcon className="h-4 w-4 fill-popover-foreground transition-colors group-hover:fill-primary" />
+                        Settings
+                    </DropdownMenuItem> : null
+                }
                 <DropdownMenuItem>
                     <LogoutButton>
                         <LogoutIcon className="h-4 w-4 fill-popover-foreground transition-colors group-hover:fill-primary" />
