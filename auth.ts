@@ -2,7 +2,7 @@ import NextAuth from "next-auth"
 import {PrismaAdapter} from "@auth/prisma-adapter";
 import {db} from "@/lib/db";
 import authConfig from "@/auth.config";
-import {getUserById} from "@/data/user";
+import {getUserByEmail, getUserById} from "@/data/user";
 import {getAccountByUserId} from "@/data/account";
 import {UserRole} from "@prisma/client";
 
@@ -41,7 +41,7 @@ export const {
 
             return true;
         },
-        async session({token, session}) {
+        async session({token, session, user}) {
             if (token.sub && session.user) {
                 session.user.id = token.sub;
             }
@@ -62,7 +62,9 @@ export const {
                 session.user.isOAuth = token.isOAuth as boolean;
             }
 
-            return session;
+            const fullUser = await getUserByEmail(session.user.email);
+
+            return { ...session, user: { ...user, ...fullUser } };
         },
         async jwt({token}) {
             if (!token.sub) return token;

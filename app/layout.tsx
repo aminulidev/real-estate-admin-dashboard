@@ -25,7 +25,7 @@ export default async function RootLayout({children}: Readonly<{
 
     return (
         <SessionProvider session={session}>
-            <html lang="en" suppressHydrationWarning>
+            <html lang="en" suppressHydrationWarning className="no-scrollbar">
                 <body className={manrope.className}>
                     {children}
                     <Toaster/>
