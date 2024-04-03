@@ -1,9 +1,9 @@
 import React from 'react';
 import LocationIcon from "@/components/icons/location-icon";
 type ProfileInfoItemProps = {
-    label: string;
-    icon: React.ReactNode;
-    text: string | null | undefined;
+    label?: string;
+    icon?: React.ReactNode;
+    text?: string | null | undefined;
 }
 const ProfileInfoItem = ({label, icon, text} : ProfileInfoItemProps) => {
     return (

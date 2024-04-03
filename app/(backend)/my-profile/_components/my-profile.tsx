@@ -1,63 +1,59 @@
-"use client";
 import React from 'react';
-import Image from "next/image";
-import {bannerBg, defaultAvatar} from "@/constatnts/dashboard/images";
-import InputFile from "@/app/(backend)/_components/input-file";
 import LocationIcon from "@/components/icons/location-icon";
 import ProfileInfoItem from "@/app/(backend)/my-profile/_components/profile-info-item";
 import PhoneIcon from "@/components/icons/phone-icon";
 import EmailIcon from "@/components/icons/email-icon";
-import {useCurrentUser} from "@/hooks/use-current-user";
-import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
-import ProfileDropdownMenu from "@/app/(backend)/my-profile/_components/profile-dropdown-menu";
-import {useCurrentRole} from "@/hooks/use-current-role";
 import {capitalize} from "@/lib/utils";
+import ProfileBanner from "@/app/(backend)/my-profile/_components/profile-banner";
+import ProfileSignature from "@/app/(backend)/my-profile/_components/profile-signature";
+import {CalendarClockIcon, Users2Icon} from "lucide-react";
+import {currentUser} from "@/lib/currentUser";
+import {currentRole} from "@/lib/currentRole";
+import EditProfileDialog from "@/app/(backend)/my-profile/_components/edit-profile-dialog";
 
-const MyProfile = () => {
-    const currentUser = useCurrentUser();
-    const currentRole = useCurrentRole();
+const MyProfile = async () => {
+    const user = await currentUser();
+    const role = await currentRole();
 
     return (
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-12.5 sm:gap-15 bg-card p-4 md:p-5 rounded-xl">
             {/*banner*/}
-            <div className="relative">
-                <Image src={bannerBg} alt="bannerBg" className="w-full aspect-video object-cover rounded-lg" />
-                <InputFile className="absolute top-4.5 left-4.5" />
-                <Avatar className="absolute left-4.5 -bottom-8 h-16 w-16 sm:-right-8 sm:top-4.5 sm:left-auto">
-                    {currentUser?.image ?
-                        <AvatarImage src={currentUser.image} alt="profile image" /> : null
-                    }
-                    <AvatarFallback>
-                        <Image src={defaultAvatar} alt="profile image" />
-                    </AvatarFallback>
-                </Avatar>
-            </div>
+            <ProfileBanner/>
             {/*profile info*/}
             <div className="space-y-5 sm:pt-4.5">
                 <div className="space-y-1.5">
-                    <div className="flex items-center justify-between">
-                        <h2 className="text-base font-semibold leading-6">{currentUser?.name}</h2>
-                        <ProfileDropdownMenu />
-                    </div>
+                    <h2 className="text-base font-semibold leading-6">{user?.name}</h2>
                     <p className="text-sm font-normal leading-5.5 text-secondary-foreground capitalize">
-                        {capitalize(currentRole)}
+                        {capitalize(role)}
                     </p>
                 </div>
                 <ProfileInfoItem
-                    label="Address"
-                    icon={<LocationIcon className="fill-foreground"/>}
-                    text="4517 Washington Ave. Manchaster"
+                    label="Email"
+                    icon={<EmailIcon className="fill-foreground"/>}
+                    text={user?.email ? user.email : "N/A"}
                 />
                 <ProfileInfoItem
                     label="Phone Number"
                     icon={<PhoneIcon className="fill-foreground"/>}
-                    text="+0123 456 7890"
+                    text={user?.phone ? user.phone : "N/A"}
                 />
                 <ProfileInfoItem
-                    label="Email"
-                    icon={<EmailIcon className="fill-foreground"/>}
-                    text={currentUser?.email}
+                    label="Gender"
+                    icon={<Users2Icon size="18" className="fill-foreground"/>}
+                    text={user?.gender ? capitalize(user.gender) : "N/A"}
                 />
+                <ProfileInfoItem
+                    label="Date of birth"
+                    icon={<CalendarClockIcon size="18" className=""/>}
+                    // @ts-ignore
+                    text={user?.dob.toDateString()}
+                />
+                <ProfileInfoItem
+                    label="Address"
+                    icon={<LocationIcon className="fill-foreground"/>}
+                    text={user?.address ? user.address : "N/A"}
+                />
+                <ProfileSignature />
             </div>
         </div>
     );
