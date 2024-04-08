@@ -23,7 +23,6 @@ import {DialogTrigger} from "@/components/ui/dialog";
 
 export const UserButton = () => {
     const user =  useCurrentUser();
-    const role =  useCurrentRole();
 
     return (
         <>
@@ -48,13 +47,6 @@ export const UserButton = () => {
                                 Edit Profile
                             </DropdownMenuItem>
                         </DialogTrigger>
-
-                        {role === UserRole.ADMIN ?
-                            <DropdownMenuItem>
-                                <SettingsIcon className="h-4 w-4 fill-popover-foreground transition-colors group-hover:fill-primary" />
-                                Settings
-                            </DropdownMenuItem> : null
-                        }
                         <DropdownMenuItem>
                             <LogoutButton>
                                 <LogoutIcon className="h-4 w-4 fill-popover-foreground transition-colors group-hover:fill-primary" />
