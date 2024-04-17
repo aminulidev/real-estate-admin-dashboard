@@ -8,5 +8,8 @@ export const EditProfileSchema = z.object({
     address: z.string({
         required_error: "Please select address.",
     }),
-
 });
+
+// export const BannerUploadSchema = z.object({
+//    bannerImg = z
+// });
