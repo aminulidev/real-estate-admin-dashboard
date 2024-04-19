@@ -13,12 +13,9 @@ import {
 } from "@/components/ui/dropdown-menu"
 import LogoutButton from "@/app/(backend)/_components/logout-button";
 import {ProfileIcon} from "@/components/icons/profile-icon";
-import {SettingsIcon} from "@/components/icons/settings-icon";
 import {LogoutIcon} from "@/components/icons/logout-icon";
-import {useCurrentRole} from "@/hooks/use-current-role";
-import {UserRole} from "@prisma/client";
 import EditProfileDialog from "@/app/(backend)/my-profile/_components/edit-profile-dialog";
-import React, {useState} from "react";
+import React from "react";
 import {DialogTrigger} from "@/components/ui/dialog";
 
 export const UserButton = () => {
