@@ -8,7 +8,6 @@ const LocationIcon = ({className}: {className: string}) => {
               fill=""
             />
         </svg>
-
     );
 };
 

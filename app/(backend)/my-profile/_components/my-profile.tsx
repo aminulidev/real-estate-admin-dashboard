@@ -27,33 +27,36 @@ const MyProfile = async () => {
                         {capitalize(role)}
                     </p>
                 </div>
-                <ProfileInfoItem
-                    label="Email"
-                    icon={<EmailIcon className="fill-foreground"/>}
-                    text={user?.email ? user.email : "N/A"}
-                />
-                <ProfileInfoItem
-                    label="Phone Number"
-                    icon={<PhoneIcon className="fill-foreground"/>}
-                    text={user?.phone ? user.phone : "N/A"}
-                />
-                <ProfileInfoItem
-                    label="Gender"
-                    icon={<Users2Icon size="18" className="fill-foreground"/>}
-                    text={user?.gender ? capitalize(user.gender) : "N/A"}
-                />
-                <ProfileInfoItem
-                    label="Date of birth"
-                    icon={<CalendarClockIcon size="18" className=""/>}
-                    // @ts-ignore
-                    text={user?.dob.toDateString()}
-                />
-                <ProfileInfoItem
-                    label="Address"
-                    icon={<LocationIcon className="fill-foreground"/>}
-                    text={user?.address ? user.address : "N/A"}
-                />
-                <ProfileSignature />
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                    <ProfileInfoItem
+                        label="Email"
+                        icon={<EmailIcon className="fill-foreground"/>}
+                        text={user?.email ? user.email : "N/A"}
+                    />
+                    <ProfileInfoItem
+                        label="Phone Number"
+                        icon={<PhoneIcon className="fill-foreground"/>}
+                        text={user?.phone ? user.phone : "N/A"}
+                    />
+                    <ProfileInfoItem
+                        label="Gender"
+                        icon={<Users2Icon size="18" className="fill-foreground"/>}
+                        text={user?.gender ? capitalize(user.gender) : "N/A"}
+                    />
+                    <ProfileInfoItem
+                        label="Date of birth"
+                        icon={<CalendarClockIcon size="18" className=""/>}
+                        // @ts-ignore
+                        text={user?.dob.toDateString()}
+                    />
+                    <ProfileInfoItem
+                        label="Address"
+                        icon={<LocationIcon className="fill-foreground"/>}
+                        text={user?.address ? user.address : "N/A"}
+                    />
+                    <ProfileSignature />
+                </div>
+
             </div>
         </div>
     );
