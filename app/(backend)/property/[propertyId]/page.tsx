@@ -10,6 +10,10 @@ import BathIcon from "@/components/icons/bath-icon";
 import CrossIcon from "@/components/icons/cross-icon";
 import KitchenIcon from "@/components/icons/kitchen-icon";
 import WifiIcon from "@/components/icons/wifi-icon";
+import {Card} from "@/components/ui/card";
+import {Avatar} from "@/components/ui/avatar";
+import Image from "next/image";
+import {defaultAvatar} from "@/constatnts/dashboard/images";
 
 export const metadata: Metadata = {
     title: "Property Details",
@@ -81,7 +85,7 @@ const PropertyDetailsPage = () => {
 
                         <div className="space-y-4">
                             <span className="text-lg font-medium">Description</span>
-                            <p className="text-sm font-normal text-secondary-foreground">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
+                            <p className="text-sm font-normal text-secondary-foreground">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry
                                 standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to
                                 make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting,
                                 remaining essentially unchanged.
@@ -90,7 +94,23 @@ const PropertyDetailsPage = () => {
 
                     </div>
                 </div>
-                <div className="basis-full md:basis-1/3">
+
+                <div className="basis-full md:basis-1/3 space-y-5">
+                    <Card className="px-6 py-5 space-y-1 text-center">
+                        <Avatar className="mx-auto">
+                            <Image src={defaultAvatar} alt="Profile image" />
+                        </Avatar>
+                        <h2 className="text-base font-semibold">Hussain Ahmed</h2>
+                        <p className="text-sm font-normal text-secondary-foreground">Agent</p>
+                        <div className="flex items-center justify-center gap-0.5">
+                            <LocationIcon className="fill-secondary-foreground"/>
+                            <address
+                                className="text-xs leading-4 font-normal text-secondary-foreground md:text-sm md:leading-5.5">
+                                North Carolina, USA
+                            </address>
+                        </div>
+                        <p className="text-base font-semibold">10 Properties</p>
+                    </Card>
                     <Button type="button">Book Now</Button>
                 </div>
             </div>
